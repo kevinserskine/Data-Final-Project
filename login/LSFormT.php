@@ -1,8 +1,10 @@
+<!-- Creates the Login and Sign Up form and send information to checkuser.php -->
+<!DOCTYPE html>
 <html>
     
     <head>
 
-        <link rel="stylesheet" href="LoginStyle.css">
+        <link rel="stylesheet" href="AccountStyle.css">
 
     </head>
 
