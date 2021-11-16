@@ -1,0 +1,100 @@
+/*Styles the Login and Sign Up Page*/
+
+body, html{
+
+    height: 100px;
+    width: 500px;
+    position: relative;
+    text-align: center;
+    left: 275px;
+    top: 30px;
+    margin: 0;
+    background-color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+
+.tablink {
+
+    background-color: rgba(85, 85, 85, 0.452);
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 20px 30px;
+    font-size: 17px;
+    width: 250px;
+
+}
+
+.tablink:hover{
+    
+    background-color: rgba(85, 85, 85, 0.452);
+}
+
+.tabcontent{
+
+    display: none;
+    padding: 100px 20px;
+    height: 250px;
+    box-shadow: 0 10px 30px black;
+}
+
+.label{
+    display: block;
+    float: left;
+    margin-top: 20px;
+    font-size: 10pt;
+}
+
+.textbox{
+
+    width: 460px;
+    height: 35px;
+    
+}
+
+.head{
+    font-size: 20pt;
+}
+
+#logbtn{
+
+    background-color: #052a5b;
+    margin-top: 20px;
+    width: 465px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    color: white;
+    height: 40px;
+}
+
+#signbtn{
+
+    background-color: #052a5b;
+    margin-top: 20px;
+    width: 465px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    color: white;
+    height: 40px;
+}
+
+
+#Login{
+    color: black;
+    background-color:white;
+}
+
+#SignUp{
+    color: black;
+    background-color:white;
+}
+
+
+
+
+
