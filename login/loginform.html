@@ -1,6 +1,3 @@
-<!-- Creates the Login and Sign Up form and send information to checkuser.php -->
-<?php include('checkuser.php') ?>
-<!DOCTYPE html>
 <html>
     
     <head>
@@ -17,7 +14,7 @@
         
         <div id="Login" class="tabcontent">
         <h3 class= "head">Login to BOOKSHELF</h3>
-        <form method= "POST" action="checkuser.php">
+        <form method= "POST">
 
             <label class= "label">Username</label>
             <input type="text" class="textbox" name="username" required>
@@ -32,7 +29,7 @@
 
         <div id="SignUp" class="tabcontent">
         <h3 class="head">Sign Up to THE BOOKSHELF</h3>
-            <form method= "POST" action="checkuser.php">
+            <form method= "POST">
     
                 <label class= "label">Username</label>
                 <input type="text" class="textbox" name="username" required>
@@ -47,7 +44,6 @@
 
         </div>
 
-        <a href="Theatres Page.html" style="position:relative; bottom: 35px;">Return to Theatres Page</a>
 
 
 
