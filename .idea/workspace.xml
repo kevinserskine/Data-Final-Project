@@ -20,14 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="607676fa-c8da-4344-accb-923c96119dc1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Data-Final-Project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/LoginStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/loginform.html" beforeDir="false" afterPath="$PROJECT_DIR$/login/loginform.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -66,7 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1637689187189</updated>
       <workItem from="1637689189113" duration="1969000" />
-      <workItem from="1637694173943" duration="1579000" />
+      <workItem from="1637694173943" duration="1748000" />
     </task>
     <servers />
   </component>
@@ -94,5 +88,13 @@
       <screen x="0" y="0" width="1473" height="864" />
     </state>
     <state x="572" y="356" key="NewPhpFileDialog/0.0.1473.864@0.0.1473.864" timestamp="1637689371490" />
+    <state x="246" y="77" key="SettingsEditor" timestamp="1637700351917">
+      <screen x="0" y="0" width="1473" height="864" />
+    </state>
+    <state x="246" y="77" key="SettingsEditor/0.0.1473.864@0.0.1473.864" timestamp="1637700351917" />
+    <state x="329" y="165" key="Vcs.Push.Dialog.v2" timestamp="1637700315502">
+      <screen x="0" y="0" width="1473" height="864" />
+    </state>
+    <state x="329" y="165" key="Vcs.Push.Dialog.v2/0.0.1473.864@0.0.1473.864" timestamp="1637700315502" />
   </component>
 </project>

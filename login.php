@@ -5,7 +5,7 @@ $error = "";
 
 // If this is a post request, handle the login (this page posts to itself)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
 }
 
 

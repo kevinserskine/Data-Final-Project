@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/index.css">
     <title>The BookShelf</title>
   </head>
   <body>
@@ -21,19 +21,19 @@
                 </div>
                 <div class="col-1">
                     <button class="btn btn-outline-light rounded-pill" type="submit">
-                        <img src="bootstrap-icons-1.7.1/search.svg" width="32px">
+                        <img src="images/bootstrap-icons-1.7.1/search.svg" width="32px">
                     </button>
                 </div>
             </form>
         </div>
         <div class="col-1 h-100 justify-content-center align-items-center d-flex">
             <button type="button" class="btn btn-outline-light w-75">
-                <img src="bootstrap-icons-1.7.1/person-circle.svg" class="w-100">
+                <img src="images/bootstrap-icons-1.7.1/person-circle.svg" class="w-100">
             </button>
         </div>
         <div class="col-1 h-100 justify-content-center align-items-center d-flex">
             <button type="button" class="btn btn-outline-light w-75">
-                <img src="bootstrap-icons-1.7.1/cart-check.svg" class="w-100">
+                <img src="images/bootstrap-icons-1.7.1/cart-check.svg" class="w-100">
             </button>
         </div>
     </nav>
