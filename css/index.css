@@ -1,0 +1,63 @@
+#navbar {
+    height: 20vh;
+    background-color: #4c86a8;
+}
+
+#mainContainer {
+    background-color: #477890;
+    height: 80vh;
+}
+
+#botBar {
+    height: 10vh;
+    bottom: 0;
+    left: 0;
+}
+
+#sortBtn {
+    height: 6vh;
+    background-color: #7e4d72;
+    color: #dbc9a7;
+}
+
+#collapsingBtn.collapsed:after {
+    content: "\02795";
+}
+
+#collapsingBtn:not(.collapsed):after{
+    content: "\2796";
+}
+
+#collapsingBtn{
+    background-color: #7e4d72;
+}
+
+
+
+.btn-outline-light, .btn-outline-light:hover {
+    border-color: #dbc9a7 !important;
+}
+
+.btn-outline-light:hover {
+    background-color: #dbc9a7 !important;
+}
+
+.logo {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    min-width: 20%;
+}
+
+.bookCard {
+    height: 35vh;
+}
+
+.sortOpt {
+    background-color: #bb93c5;
+    color: #dbc9a7;
+    border-style: solid;
+    border-color: #7e4d72;
+    border-width: 1px;
+    border-top: none;
+}
