@@ -5,7 +5,15 @@ $error = "";
 
 // If this is a post request, handle the login (this page posts to itself)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Include and call function to connect to db
+    include_once 'components/dbConnect.php';
+    $conn = getConnection();
 
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    session_start();
 }
 
 

@@ -20,7 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="607676fa-c8da-4344-accb-923c96119dc1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/dbConnect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loginform.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,8 +52,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Programming\School\Data-Final-Project\styles" />
       <recent name="D:\Programming\School\Data-Final-Project" />
+      <recent name="D:\Programming\School\Data-Final-Project\images" />
+      <recent name="D:\Programming\School\Data-Final-Project\styles" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -60,7 +66,7 @@
       <option name="presentableId" value="Default" />
       <updated>1637689187189</updated>
       <workItem from="1637689189113" duration="1969000" />
-      <workItem from="1637694173943" duration="1748000" />
+      <workItem from="1637694173943" duration="2591000" />
     </task>
     <servers />
   </component>
@@ -84,17 +90,17 @@
       <screen x="0" y="0" width="1473" height="864" />
     </state>
     <state x="192" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1473.864@0.0.1473.864" timestamp="1637689447469" />
-    <state x="572" y="356" key="NewPhpFileDialog" timestamp="1637689371490">
+    <state x="572" y="356" key="NewPhpFileDialog" timestamp="1637701117228">
       <screen x="0" y="0" width="1473" height="864" />
     </state>
-    <state x="572" y="356" key="NewPhpFileDialog/0.0.1473.864@0.0.1473.864" timestamp="1637689371490" />
+    <state x="572" y="356" key="NewPhpFileDialog/0.0.1473.864@0.0.1473.864" timestamp="1637701117228" />
     <state x="246" y="77" key="SettingsEditor" timestamp="1637700351917">
       <screen x="0" y="0" width="1473" height="864" />
     </state>
     <state x="246" y="77" key="SettingsEditor/0.0.1473.864@0.0.1473.864" timestamp="1637700351917" />
-    <state x="329" y="165" key="Vcs.Push.Dialog.v2" timestamp="1637700315502">
+    <state x="329" y="165" key="Vcs.Push.Dialog.v2" timestamp="1637700353839">
       <screen x="0" y="0" width="1473" height="864" />
     </state>
-    <state x="329" y="165" key="Vcs.Push.Dialog.v2/0.0.1473.864@0.0.1473.864" timestamp="1637700315502" />
+    <state x="329" y="165" key="Vcs.Push.Dialog.v2/0.0.1473.864@0.0.1473.864" timestamp="1637700353839" />
   </component>
 </project>
