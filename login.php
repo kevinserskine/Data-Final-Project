@@ -116,28 +116,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
 
 </body>
 
 <script>
 
-    function openPage(pageName, elmnt, color) {
-        var i, tabcontent, tablinks;
+    function openPage(pageName, element, color) {
+        let i, tabContent, tabLinks;
 
-        tabcontent = document.getElementsByClassName("tabcontent");
+        // Isn't jquery fun?
+        $(".tabcontent").hide();
+        $(". tablink").css("background-color", "");
 
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
+        $("#" + pageName).show();
 
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].style.backgroundColor = "";
-        }
-
-        document.getElementById(pageName).style.display = "block";
-
-        elmnt.style.backgroundColor = color;
+        element.style.backgroundColor = color;
 
     }
 
