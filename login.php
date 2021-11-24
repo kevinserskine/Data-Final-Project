@@ -81,16 +81,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div id="Login" class="tabcontent">
     <h3 class="head">Login to THE BOOKSHELF</h3>
-    <form method="POST">
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
-        <label class="label">Username
-            <input type="text" class="textbox" name="username" required>
+        <label class="label">Email
+            <input type="email" class="textbox" name="email" required>
         </label>
 
         <label class="label">Password
             <input type="password" class="textbox" name="password" required>
         </label>
 
+        <input type="text" value="login" id="mode" name="mode" hidden>
         <button type="submit" id="logbtn" name="login">Login</button>
 
     </form>
