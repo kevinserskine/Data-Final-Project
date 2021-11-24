@@ -81,12 +81,14 @@
                     <?php
                         $books_per_page = 4;
 
+                        //Getting page from URL and defaulting to 1 if not found
                         if(isset($_GET["page"])) {
                             $page = $_GET["page"];
                         } else {
                             $page = 1;
                         }
 
+                        //Switch to determine sorting order, default to title ASC if nothing posted
                         if(isset($_POST["optionRadios"])) {
                             switch ($_POST["optionRadios"]) {
                                 case "titleA":
@@ -111,7 +113,7 @@
                             $order = "ASC";
                         }
 
-
+                        //SQL query to select all books and group by sort order
                         $start_from = ($page-1) * $books_per_page;
                         $query = "SELECT * from book
                         INNER JOIN book_author ON book.book_id=book_author.book_id
@@ -120,15 +122,22 @@
                         LIMIT $start_from, $books_per_page";
                         $rs_result = mysqli_query($conn, $query);
 
+                        //Output a card for each book found
                         while ($row = mysqli_fetch_array($rs_result)){
+                            echo '<div class="col border bookCard">'.$row["title"].'<br>'.$row["author_name"].'</div>';
+                        }
 
-
+                        //Pads the rest of the mock 2x2 if not enough books are found
+                        if (mysqli_num_rows($rs_result)<4){
+                            for ($i=0;$i<$books_per_page-mysqli_num_rows($rs_result);$i++){
+                                echo '<div class="col border bookCard">Disabled</div>';
+                            }
+                        }
                     ?>
-                    <div class="col border bookCard"><?php echo $row["title"]."<br>";
-                    echo $row["author_name"];?></div>
-                    <?php }; ?>
+
                     <div class="col-12 border border-dark justify-content-center align-items-center d-flex" id="botBar">
                         <?php
+
                             $query = "SELECT COUNT(*) FROM book";
                             $rs_result = mysqli_query($conn, $query);
                             $row = mysqli_fetch_array($rs_result);
@@ -137,19 +146,22 @@
                             $total_pages = ceil($total_records/$books_per_page);
                             $pagLink="";
 
+                            //If past the first page create a Previous link
                             if($page>=2) {
                                 echo "<a href='index.php?page=".($page-1)."'> Prev </a>";
                             }
 
+                            //Create a page link for each valid page possible
                             for($i=1; $i<=$total_pages; $i++){
                                 if($i==$page){
                                     $pagLink .="<a class='active' href='index.php?page=".$i."'>".$i."</a>";
                                 } else {
                                     $pagLink .="<a href='index.php?page=".$i."'>".$i."</a>";
                                 }
-                            };
+                            }
                             echo $pagLink;
 
+                            //If before the final page create a Next link
                             if($page<$total_pages){
                                 echo "<a href='index.php?page=".($page+1)."'> Next </a>";
                             }
