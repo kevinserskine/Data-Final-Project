@@ -20,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $mode = $_POST["mode"];
 
-    // Sanitize our inputs (nice try bobby tables)
+    // Sanitize our inputs and hash the password (nice try bobby tables)
     $email = $conn->real_escape_string($email);
-    $password = $conn->real_escape_string($password);
+    $password = password_hash($conn->real_escape_string($password), PASSWORD_DEFAULT);
 
     // Make a sql query to see if the user exists (This is useful for both login and signup)
     $sql = "SELECT email FROM user WHERE email = '$email';";
@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Do things based on if user logging in or signing up
     if ($mode == "login") {
         if ($userExists) {
-            // Todo hash password
             $sql = $sql = "SELECT email ,user_id FROM user WHERE email = '$email' AND password = '$password';";
             $result = mysqli_query($conn, $sql);
             // If nothing was returned, wrong password
@@ -56,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else if ($mode == "register") {
         $error = "I haven't wrote that code yet sorry";
-        // todo remember to hash the password (if login inexplicably doesn't work check consistent hashing)
     }
 }
 
