@@ -1,9 +1,18 @@
+<?php
+    include_once 'components/dbConnect.php';
+    $conn = getConnection();
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    session_start();
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/index.css">
     <title>The BookShelf</title>
@@ -45,25 +54,107 @@
                     Sort by
                 </button>
                 <div class="collapse" id="sortOption">
-                    <div class="card card-body sortOpt">
-                        Title
-                    </div>
-                    <div class="card card-body sortOpt">
-                        Author
-                    </div>
-                    <div class="card card-body sortOpt">
-                        Publication year
-                    </div>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="optionRadios" id="titleASC" value="titleA">
+                            <label class="form-check-label" for="titleASC">Title ascending</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="optionRadios" id="titleDESC" value="titleD">
+                            <label class="form-check-label" for="titleDESC">Title descending</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="optionRadios" id="authorASC" value="authorA">
+                            <label class="form-check-label" for="authorASC">Author ascending</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="optionRadios" id="authorDESC" value="authorD">
+                            <label class="form-check-label" for="authorDESC">Author descending</label>
+                        </div>
+                        <input type="submit" value="Sort" name="Sort">
+                    </form>
                 </div>
             </div>
 
             <div class="col-8">
                 <div class="row row-cols-2">
-                    <div class="col border bookCard">A</div>
-                    <div class="col border bookCard">B</div>
-                    <div class="col border bookCard">C</div>
-                    <div class="col border bookCard">D</div>
-                    <div class="col-12 border border-dark justify-content-center align-items-center d-flex" id="botBar">Pagination</div>
+                    <?php
+                        $books_per_page = 4;
+
+                        if(isset($_GET["page"])) {
+                            $page = $_GET["page"];
+                        } else {
+                            $page = 1;
+                        }
+
+                        if(isset($_POST["optionRadios"])) {
+                            switch ($_POST["optionRadios"]) {
+                                case "titleA":
+                                    $category = "title";
+                                    $order = "ASC";
+                                    break;
+                                case "titleD":
+                                    $category = "title";
+                                    $order = "DESC";
+                                    break;
+                                case "authorA":
+                                    $category = "author_name";
+                                    $order = "ASC";
+                                    break;
+                                case "authorD":
+                                    $category = "author_name";
+                                    $order = "DESC";
+                                    break;
+                            }
+                        } else {
+                            $category = "title";
+                            $order = "ASC";
+                        }
+
+
+                        $start_from = ($page-1) * $books_per_page;
+                        $query = "SELECT * from book
+                        INNER JOIN book_author ON book.book_id=book_author.book_id
+                        INNER JOIN author ON author.author_id=book_author.author_id
+                        ORDER BY $category $order 
+                        LIMIT $start_from, $books_per_page";
+                        $rs_result = mysqli_query($conn, $query);
+
+                        while ($row = mysqli_fetch_array($rs_result)){
+
+
+                    ?>
+                    <div class="col border bookCard"><?php echo $row["title"]."<br>";
+                    echo $row["author_name"];?></div>
+                    <?php }; ?>
+                    <div class="col-12 border border-dark justify-content-center align-items-center d-flex" id="botBar">
+                        <?php
+                            $query = "SELECT COUNT(*) FROM book";
+                            $rs_result = mysqli_query($conn, $query);
+                            $row = mysqli_fetch_array($rs_result);
+                            $total_records = $row[0];
+
+                            $total_pages = ceil($total_records/$books_per_page);
+                            $pagLink="";
+
+                            if($page>=2) {
+                                echo "<a href='index.php?page=".($page-1)."'> Prev </a>";
+                            }
+
+                            for($i=1; $i<=$total_pages; $i++){
+                                if($i==$page){
+                                    $pagLink .="<a class='active' href='index.php?page=".$i."'>".$i."</a>";
+                                } else {
+                                    $pagLink .="<a href='index.php?page=".$i."'>".$i."</a>";
+                                }
+                            };
+                            echo $pagLink;
+
+                            if($page<$total_pages){
+                                echo "<a href='index.php?page=".($page+1)."'> Next </a>";
+                            }
+                        ?>
+                    </div>
                 </div>
             </div>
 
