@@ -128,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Isn't jquery fun?
         $(".tabcontent").hide();
-        $(". tablink").css("background-color", "");
+        $(".tablink").css("background-color", "");
 
         $("#" + pageName).show();
 
