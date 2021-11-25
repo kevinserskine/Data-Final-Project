@@ -44,7 +44,9 @@
                     if (isset($_SESSION['sessionID'])) {
                         echo 'href="account.php"';
                     } else {
-                        echo 'href="login.php"';
+                        //Temporarily set sessionID to 1 while login is broken
+                        $_SESSION['sessionID']=1;
+                        //echo 'href="login.php"';
                     }
                     ?>
                 >
@@ -82,6 +84,14 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="optionRadios" id="authorDESC" value="authorD">
                                 <label class="form-check-label" for="authorDESC">Author descending</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="optionRadios" id="publisherASC" value="publishA">
+                                <label class="form-check-label" for="publisherASC">Publisher ascending</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="optionRadios" id="publisherDESC" value="publishD">
+                                <label class="form-check-label" for="publisherDESC">Publisher descending</label>
                             </div>
                             <input type="submit" value="Sort" name="Sort">
                         </form>
@@ -124,6 +134,14 @@
                                         break;
                                     case "authorD":
                                         $_SESSION['category'] = "author_name";
+                                        $_SESSION['order'] = "DESC";
+                                        break;
+                                    case "publishA":
+                                        $_SESSION['category'] = "publisher_name";
+                                        $_SESSION['order'] = "ASC";
+                                        break;
+                                    case "publishD":
+                                        $_SESSION['category'] = "publisher_name";
                                         $_SESSION['order'] = "DESC";
                                         break;
                                 }
@@ -169,7 +187,7 @@
                             $rs_result = mysqli_query($conn, $query);
 
                             //Output a card for each book found
-                            while ($row = mysqli_fetch_array($rs_result)){
+                            while ($row = mysqli_fetch_assoc($rs_result)){
                                 echo '<div class="col border bookCard">'.$row["title"].'<br>'.$row["author_name"].'</div>';
                             }
 
