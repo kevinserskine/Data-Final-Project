@@ -100,6 +100,12 @@
                                 $page = 1;
                             }
 
+                            if(isset($_GET["searchBar"])){
+                                $search = $_GET["searchBar"];
+                            } else {
+                                $search = "";
+                            }
+
                             //Switch to determine sorting order, default to title ASC if nothing posted
                             //Sorting order persists through session to allow for searched sorting
                             if (isset($_POST["optionRadios"])) {
@@ -131,30 +137,36 @@
                             $category=$_SESSION['category'];
                             $order=$_SESSION['order'];
                             $start_from = ($page-1) * $books_per_page;
-                            //If searchBar is empty then search for all books
-                            if (!isset($_GET["searchBar"])){
+
+                            $terms = explode(" ",$search);
+                            $term = "'%".$terms[0]."%'";
+                            if (count($terms)>1){
                                 $query = "SELECT * from book
                                 INNER JOIN book_author ON book.book_id=book_author.book_id
                                 INNER JOIN author ON author.author_id=book_author.author_id
                                 INNER JOIN publisher ON book.publisher_id=publisher.publisher_id
-                                ORDER BY $category $order 
-                                LIMIT $start_from, $books_per_page";
-                                $rs_result = mysqli_query($conn, $query);
+                                WHERE title like $term
+                                OR author_name LIKE $term
+                                OR publisher_name LIKE $term
+                                ";
+                                for ($i=1;$i<count($terms);$i++){
+                                    $term = "'%".$terms[$i]."%'";
+                                    $query .=" OR title like ".$term." OR author_name LIKE ".$term." OR publisher_name LIKE ".$term;
+                                }
+                                $query .= " ORDER BY ".$category." ".$order." LIMIT ".$start_from.", ".$books_per_page;
                             } else {
-                                //If searchBar isn't empty, then search for all books matching title, author_name, or publisher_name
-                                //TODO split search into multiple words
-                                $search = "'%".$_GET['searchBar']."%'";
                                 $query = "SELECT * from book
                                 INNER JOIN book_author ON book.book_id=book_author.book_id
                                 INNER JOIN author ON author.author_id=book_author.author_id
                                 INNER JOIN publisher ON book.publisher_id=publisher.publisher_id
-                                WHERE title LIKE $search
-                                OR author_name LIKE $search
-                                OR publisher_name LIKE $search
+                                WHERE title LIKE $term
+                                OR author_name LIKE $term
+                                OR publisher_name LIKE $term
                                 ORDER BY $category $order 
                                 LIMIT $start_from, $books_per_page";
-                                $rs_result = mysqli_query($conn, $query);
                             }
+
+                            $rs_result = mysqli_query($conn, $query);
 
                             //Output a card for each book found
                             while ($row = mysqli_fetch_array($rs_result)){
