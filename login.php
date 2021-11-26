@@ -54,7 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
     } else if ($mode == "register") {
-        $error = "I haven't wrote that code yet sorry";
+        if ($userExists) {
+            $error = "User with that email already exists!";
+        } else {
+            // Insert the new user info into the database
+            $sql = "INSERT INTO user (email, password) VALUES ('$email','$password');";
+            mysqli_query($conn, $sql);
+
+            // Log the user in as the newly created user and redirect to index
+            $_SESSION['sessionID'] = $conn->insert_id;
+            header("Location:index.php");
+        }
     }
 }
 
@@ -79,6 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div id="Login" class="tabcontent">
     <h3 class="head">Login to THE BOOKSHELF</h3>
+    <p class="error"><?php echo $error; ?></p>
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
         <label class="label">Email
@@ -89,8 +100,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" class="textbox" name="password" required>
         </label>
 
+        <!--suppress HtmlFormInputWithoutLabel -->
         <input type="text" value="login" id="mode" name="mode" hidden>
-        <button type="submit" id="logbtn" name="login">Login</button>
+        <button type="submit" id="loginButton" name="login">Login</button>
 
     </form>
 </div>
@@ -99,8 +111,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h3 class="head">Sign Up to THE BOOKSHELF</h3>
     <form method="POST">
 
-        <label class="label">Username
-            <input type="text" class="textbox" name="username" required>
+        <label class="label">Email
+            <input type="email" class="textbox" name="email" required>
         </label>
 
         <label class="label">Password
