@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Do things based on if user logging in or signing up
     if ($mode == "login") {
         if ($userExists) {
-            $sql = $sql = "SELECT email ,user_id FROM user WHERE email = '$email';";
+            $sql = "SELECT password, email ,user_id FROM user WHERE email = '$email';";
             $result = mysqli_query($conn, $sql);
             while ($row = $result->fetch_assoc()) {
                 // Verify the password against the hash
