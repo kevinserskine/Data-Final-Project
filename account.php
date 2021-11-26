@@ -41,19 +41,8 @@
             </div>
 
             <div class="col-1 h-100 justify-content-center align-items-center d-flex">
-                <a class="btn btn-outline-light w-75"
-                    <?php
-                    if (isset($_SESSION['sessionID'])) {
-                        echo 'href="account.php"';
-                    } else {
-                        //Temporarily set sessionID to 1 while login is broken
-                        $_SESSION['sessionID']=1;
-                        //echo 'href="login.php"';
-                    }
-                    ?>
-                >
+                <a class="btn btn-outline-light w-75" href="account.php">
                     <img src="images/bootstrap-icons-1.7.1/person-circle.svg" class="w-100">
-
                 </a>
             </div>
             <div class="col-1 h-100 justify-content-center align-items-center d-flex">
@@ -97,7 +86,6 @@
                         INNER JOIN user_address ON user_address.user_id = user.user_id
                         INNER JOIN address ON address.address_id = user_address.address_id
                         WHERE user.user_id = $userID";
-
                         $result = mysqli_query($conn, $query);
                         $row = mysqli_fetch_assoc($result);
                     ?>
@@ -189,7 +177,26 @@
                     </div>
                 </div>
                 <div class="col">
-                    Order info
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Your orders</h5>
+                            <ul class="list-group list-group-flush">
+                                <?php
+                                $query = "SELECT order_list.price, book.title, order_status.status_value, user_order.order_date, address.street_name, address.street_number FROM order_list
+                                    INNER JOIN book ON order_list.book_id = book.book_id
+                                    INNER JOIN order_history ON order_list.order_id = order_history.order_id
+                                    INNER JOIN order_status ON order_status.status_id = order_history.status_id
+                                    INNER JOIN user_order ON user_order.order_id = order_list.order_id
+                                    INNER JOIN address ON address.address_id = user_order.dest_address_id
+                                    WHERE user_id=$userID";
+                                $result = mysqli_query($conn, $query);
+                                while ($row = mysqli_fetch_assoc($result)){
+                                    echo '<li class="list-group-item">Title: '.$row["title"].' Status: '.$row["status_value"].' Price: '.$row["price"].' Address: '.$row["street_number"].' '.$row["street_name"].'</li>';
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 

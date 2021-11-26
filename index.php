@@ -158,6 +158,13 @@
 
                             $terms = explode(" ",$search);
                             $term = "'%".$terms[0]."%'";
+                            $countQ= "SELECT COUNT(*) from book
+                            INNER JOIN book_author ON book.book_id=book_author.book_id
+                            INNER JOIN author ON author.author_id=book_author.author_id
+                            INNER JOIN publisher ON book.publisher_id=publisher.publisher_id
+                            WHERE title LIKE $term
+                            OR author_name LIKE $term
+                            OR publisher_name LIKE $term";
                             if (count($terms)>1){
                                 $query = "SELECT * from book
                                 INNER JOIN book_author ON book.book_id=book_author.book_id
@@ -170,6 +177,7 @@
                                 for ($i=1;$i<count($terms);$i++){
                                     $term = "'%".$terms[$i]."%'";
                                     $query .=" OR title like ".$term." OR author_name LIKE ".$term." OR publisher_name LIKE ".$term;
+                                    $countQ .=" OR title like ".$term." OR author_name LIKE ".$term." OR publisher_name LIKE ".$term;
                                 }
                                 $query .= " ORDER BY ".$category." ".$order." LIMIT ".$start_from.", ".$books_per_page;
                             } else {
@@ -183,7 +191,6 @@
                                 ORDER BY $category $order 
                                 LIMIT $start_from, $books_per_page";
                             }
-
                             $rs_result = mysqli_query($conn, $query);
 
                             //Output a card for each book found
@@ -201,33 +208,47 @@
 
                         <div class="col-12 border border-dark justify-content-center align-items-center d-flex" id="botBar">
                             <?php
-
-                                $query = "SELECT COUNT(*) FROM book";
-                                $rs_result = mysqli_query($conn, $query);
-                                $row = mysqli_fetch_array($rs_result);
+                                $result = mysqli_query($conn, $countQ);
+                                $row = mysqli_fetch_array($result);
                                 $total_records = $row[0];
 
                                 $total_pages = ceil($total_records/$books_per_page);
                                 $pagLink="";
 
-                                //If past the first page create a Previous link
-                                if($page>=2) {
-                                    echo "<a href='index.php?page=".($page-1)."'> Prev </a>";
-                                }
-
-                                //Create a page link for each valid page possible
-                                for($i=1; $i<=$total_pages; $i++){
-                                    if($i==$page){
-                                        $pagLink .="<a class='active' href='index.php?page=".$i."'>".$i."</a>";
-                                    } else {
-                                        $pagLink .="<a href='index.php?page=".$i."'>".$i."</a>";
+                                if(isset($_GET["searchBar"])){
+                                    if($page>=2) {
+                                        echo "<a href='index.php?page=".($page-1)."&searchBar=".$_GET['searchBar']."'> Prev </a>";
                                     }
-                                }
-                                echo $pagLink;
 
-                                //If before the final page create a Next link
-                                if($page<$total_pages){
-                                    echo "<a href='index.php?page=".($page+1)."'> Next </a>";
+                                    for($i=1; $i<=$total_pages; $i++){
+                                        if($i==$page){
+                                            $pagLink .="<a class='active' href='index.php?page=".$i."&searchBar=".$_GET['searchBar']."'>".$i."</a>";
+                                        } else {
+                                            $pagLink .="<a href='index.php?page=".$i."&searchBar=".$_GET['searchBar']."'>".$i."</a>";
+                                        }
+                                    }
+                                    echo $pagLink;
+
+                                    if($page<$total_pages){
+                                        echo "<a href='index.php?page=".($page+1)."&searchBar=".$_GET['searchBar']."'> Next </a>";
+                                    }
+                                } else {
+                                    if($page>=2) {
+                                        echo "<a href='index.php?page=".($page-1)."'> Prev </a>";
+                                    }
+
+                                    for($i=1; $i<=$total_pages; $i++){
+                                        if($i==$page){
+                                            $pagLink .="<a class='active' href='index.php?page=".$i."'>".$i."</a>";
+                                        } else {
+                                            $pagLink .="<a href='index.php?page=".$i."'>".$i."</a>";
+                                        }
+                                    }
+                                    echo $pagLink;
+
+                                    if($page<$total_pages){
+                                        echo "<a href='index.php?page=".($page+1)."'> Next </a>";
+                                    }
                                 }
                             ?>
                         </div>
