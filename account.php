@@ -201,7 +201,14 @@
         <script>
             $(document).ready(function() {
                 $('[name="delBtn"]').click(function() {
-                    alert(this.id);
+                    $.ajax({
+                        type: "POST",
+                        url: "address.php",
+                        data: {
+                            id: this.id
+                        }
+                    });
+                    $(this).parent().hide();
                 });
             });
         </script>
