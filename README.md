@@ -3,15 +3,15 @@ Group 17
 
 Members:
 
-Kevin Erskine; 100762922
+Kevin Erskine: 100762922
 
-Misha Larionov; 100743093
+Misha Larionov: 100743093
 
-Raphaiel Halim; 100700318
+Raphaiel Halim: 100700318
 
-Ivan Bisol; 100701735
+Ivan Bisol: 100701735
 
-Rubbia Pasha; 100702075
+Rubbia Pasha: 100702075
 
 
 
