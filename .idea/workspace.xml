@@ -19,7 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="607676fa-c8da-4344-accb-923c96119dc1" name="Default Changelist" comment="" />
+    <list default="true" id="607676fa-c8da-4344-accb-923c96119dc1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/scripts/loginTabs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/login.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +32,13 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,7 +73,7 @@
       <updated>1637689187189</updated>
       <workItem from="1637689189113" duration="1969000" />
       <workItem from="1637694173943" duration="15136000" />
-      <workItem from="1637889223551" duration="1067000" />
+      <workItem from="1637889223551" duration="1757000" />
     </task>
     <servers />
   </component>

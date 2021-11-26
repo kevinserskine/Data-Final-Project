@@ -79,77 +79,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="styles/login.css">
     <title>Placeholder change later</title>
 
+    <script type="text/javascript" src="scripts/loginTabs.js" async></script>
+
 </head>
 
 <body>
 
-<button class="tablink" onclick="openPage('Login', this, 'white')" id="defaultOpen">Login</button>
-<button class="tablink" onclick="openPage('SignUp', this, 'white')">Sign Up</button>
+<div id="loginBox">
+    <div id="splitHeader">
+        <button type="button" class="headerButton" id="loginButton" onclick="loginMode()">Log In</button>
+        <button type="button" class="headerButton" id="signupButton" onclick="signupMode()">Sign Up</button>
+    </div>
+    <div id="formBody">
+        <h1 class="formHeader" id="loginTitle">Login to Marketplace</h1>
+        <!-- Form posts to itself -->
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
+            <label for="name" class="signup">Name</label>
+            <input type="text" id="name" class="signup" name="name">
 
-<div id="Login" class="tabcontent">
-    <h3 class="head">Login to THE BOOKSHELF</h3>
-    <p class="error"><?php echo $error; ?></p>
-    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <label for="email" class="login">Email</label>
+            <input type="email" id="email" class="login" name="email" required>
 
-        <label class="label">Email
-            <input type="email" class="textbox" name="email" required>
-        </label>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
 
-        <label class="label">Password
-            <input type="password" class="textbox" name="password" required>
-        </label>
+            <!--suppress HtmlFormInputWithoutLabel -->
+            <input type="text" value="login" id="mode" name="mode" hidden>
 
-        <!--suppress HtmlFormInputWithoutLabel -->
-        <input type="text" value="login" id="mode" name="mode" hidden>
-        <button type="submit" id="loginButton" name="login">Login</button>
-
-    </form>
+            <input type="submit" id="submit">
+            <p class="error"><?php echo $error; ?></p>
+        </form>
+    </div>
 </div>
-
-<div id="SignUp" class="tabcontent">
-    <h3 class="head">Sign Up to THE BOOKSHELF</h3>
-    <form method="POST">
-
-        <label class="label">Email
-            <input type="email" class="textbox" name="email" required>
-        </label>
-
-        <label class="label">Password
-            <input type="password" class="textbox" name="password" required>
-        </label>
-
-        <button type="submit" id="signbtn" name="signup">Sign Up</button>
-
-    </form>
-
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-
-
-</body>
-
-<script>
-
-    function openPage(pageName, element, color) {
-        let i, tabContent, tabLinks;
-
-        // Isn't jquery fun?
-        $(".tabcontent").hide();
-        $(".tablink").css("background-color", "");
-
-        $("#" + pageName).show();
-
-        element.style.backgroundColor = color;
-
-    }
-
-    document.getElementById("defaultOpen").click();
-
-</script>
 
 </html>
