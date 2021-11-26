@@ -262,11 +262,23 @@
                 <div class="col-2 px-0">
                     <div class="row-cols-1" style="overflow-y: scroll">
                         <div class="card">
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-group list-group-flush" id="cartList">
                                 <?php
-                                    print_r($_SESSION['cart']);
+                                    if(isset($_SESSION['cart'])){
+                                        foreach ($_SESSION['cart'] as &$value){
+                                            foreach ($value as &$value2){
+                                                echo "<li class='list-group item'>";
+                                                echo "Title: ".$value2['title']." - Quantity: ".$value2['quantity']. " - ";
+                                                if (isset($value2['price'])){
+                                                    echo "Price per book - ".$value2['price'];
+                                                } else {
+                                                    echo "Borrowing";
+                                                }
+                                                echo "</li>";
+                                            }
+                                        }
+                                    }
                                 ?>
-                                <li class="list-group-item">Test</li>
                             </ul>
                         </div>
                         <div class="col position-absolute border border-dark" id="botBar">
@@ -351,7 +363,8 @@
                             mode: "borrow"
                         },
                         success: function(data) {
-                            //alert(data);
+                            var child = "<li class='list-group-item'>Title: "+data["title"]+" - Quantity "+data["quantity"]+"</li>";
+                            $("#cartList").append(child)
                         }
                     });
                 });
@@ -366,7 +379,9 @@
                             mode: "buy"
                         },
                         success: function(data) {
-                            $("#totalCost").text("Total: "+data);
+                            $("#totalCost").text("Total: "+data['totalCost']);
+                            var child = "<li class='list-group-item'>Title: "+data["title"]+" - Quantity "+data["quantity"]+" - Price per book - "+data["price"]+"</li>";
+                            $("#cartList").append(child)
                         }
                     });
                 });

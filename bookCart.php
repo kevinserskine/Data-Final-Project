@@ -27,7 +27,8 @@
         } else {
             $_SESSION['totalCost']+=$row['price'];
         }
-        echo $_SESSION['totalCost'];
+        header('Content-Type: application/json');
+        echo json_encode(array('title' => $row['title'], 'quantity' => $_SESSION['cart']['buy'][$ISBN]['quantity'],'price'=>$row['price'],'totalCost'));
     } elseif ($mode=='borrow'){
         $query = "SELECT title FROM BOOK where ISBN13=$ISBN";
         $result = mysqli_query($conn, $query);
@@ -38,5 +39,7 @@
         } else {
             $_SESSION['cart']['borrow'][$ISBN]['quantity']+=1;
         }
+        header('Content-Type: application/json');
+        echo json_encode(array('title' => $row['title'], 'quantity' => $_SESSION['cart']['borrow'][$ISBN]['quantity']));
     }
 ?>
