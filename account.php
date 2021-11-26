@@ -6,8 +6,8 @@
         die("Connection failed: " . mysqli_connect_error());
     }
     session_start();
-
-    $userID=$_SESSION['sessionID'];
+    include 'components/isAuthed.php';
+    $userID = $_SESSION['sessionID'];
 
 ?>
 
