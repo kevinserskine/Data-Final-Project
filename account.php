@@ -52,6 +52,7 @@
             </div>
         </nav>
         <?php
+            //If address information is posted, insert into the database - better to just use an ajax call in hindsight
             if(isset($_POST['cityAdd'])) {
                 $streetNumber = $_POST['streetNumberAdd'];
                 $streetName = $_POST['streetNameAdd'];
@@ -74,12 +75,14 @@
             <div class="row">
                 <div class="col">
                     <?php
+                        //Pulls up user info
                         $query = "SELECT name, email FROM user WHERE user_id=$userID";
                         $result = mysqli_query($conn, $query);
                         $row=mysqli_fetch_assoc($result);
                         $name = $row['name'];
                         $email = $row['email'];
 
+                        //Pulls up how many addresses the user has
                         $query = "SELECT COUNT(address_id) FROM user_address WHERE user_id=$userID GROUP BY user_id";
                         $result = mysqli_query($conn, $query);
                         $count = mysqli_fetch_array($result);
@@ -107,6 +110,7 @@
                                  * @param array $row
                                  * @return array
                                  */
+                                //Auto genned function that removed some common code, creates a new li with address info
                                 function extracted($addressCounter, array $row)
                                 {
                                     echo "<li class='list-group-item'>Address " . $addressCounter . ": ";
@@ -141,6 +145,7 @@
                         </div>
                     </div>
                     <div class="modal fade" id="addAddress" tabindex="-1">
+                        <!--Modal used for adding new addresses-->
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -187,6 +192,7 @@
                             <h5 class="card-title">Your orders</h5>
                             <ul class="list-group list-group-flush">
                                 <?php
+                                //Pulls up all user's order, can definitely be improved to display details better
                                 $query = "SELECT order_list.price, book.title, address.street_name, address.street_number FROM user_order
                                     INNER JOIN order_list ON order_list.order_id = user_order.order_id
                                     INNER JOIN address ON address.address_id = user_order.dest_address_id
@@ -214,6 +220,7 @@
         <script src="scripts/bootstrap.bundle.js"></script>
         <script>
             $(document).ready(function() {
+                //Used for deleting and hiding addresses
                 $('[name="delBtn"]').click(function() {
                     $.ajax({
                         type: "POST",

@@ -7,6 +7,7 @@
     }
 
     $ISBN=$_POST['ISBN'];
+    //Pulls up information for the modal and returns it in JSON format
     $query="SELECT title, author_name, publisher_name, publication_date, price, img_link FROM book
     INNER JOIN publisher ON book.publisher_id=publisher.publisher_id
     INNER JOIN book_author ON book.book_id=book_author.book_id

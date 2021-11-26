@@ -12,6 +12,7 @@
     $ISBN = $_POST['ISBN'];
     $mode = $_POST['mode'];
     if($mode=='buy'){
+        //If buying set the corresponding ['buy']'s price, title, and quantity
         $query = "SELECT price, title FROM BOOK where ISBN13=$ISBN";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);
@@ -30,6 +31,7 @@
         header('Content-Type: application/json');
         echo json_encode(array('title' => $row['title'], 'quantity' => $_SESSION['cart']['buy'][$ISBN]['quantity'],'price'=>$row['price'],'totalCost' => $_SESSION['totalCost']));
     } elseif ($mode=='borrow'){
+        //If borrwing set the corresponding ['borrow']'s price, title, and quantity
         $query = "SELECT title FROM BOOK where ISBN13=$ISBN";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);

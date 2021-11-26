@@ -9,6 +9,7 @@
     include 'components/isAuthed.php';
     $userID = $_SESSION['sessionID'];
     foreach ($_SESSION['cart']['buy'] as $key => $value){
+        //Updates user purchases (currently hardcoded for user_id/address_id 1/1)
         $result=mysqli_query($conn, "SELECT book_id FROM book where ISBN13=$key");
         $row=mysqli_fetch_assoc($result);
         $book_id=$row['book_id'];
@@ -20,6 +21,7 @@
     }
     unset($_SESSION['cart']['buy']);
     foreach ($_SESSION['cart']['borrow'] as $key => $value){
+        //Updates user borrows (currently hardcoded for user_id/address_id 1/1)
         $result=mysqli_query($conn, "SELECT book_id FROM book where ISBN13=$key");
         $row=mysqli_fetch_assoc($result);
         $book_id=$row['book_id'];
@@ -27,6 +29,7 @@
         $order_id=mysqli_insert_id($conn);
         mysqli_query($conn, "INSERT INTO order_list (order_id, book_id, price) VALUES ($order_id, $book_id, 0.0)");
     }
+    //Clear $_SESSION['cart']s and ['totalCost']
     unset($_SESSION['cart']['borrow']);
     unset($_SESSION['totalCost']);
 ?>
