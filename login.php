@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_start();
 
     // Get post request variables
+    $name = $_POST["name"];
     $email = $_POST["email"];
     $password = $_POST["password"];
     $mode = $_POST["mode"];
@@ -58,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "User with that email already exists!";
         } else {
             // Insert the new user info into the database
-            $sql = "INSERT INTO user (email, password) VALUES ('$email','$password');";
+            $sql = "INSERT INTO user (name, email, password) VALUES ('$name','$email','$password');";
             mysqli_query($conn, $sql);
 
             // Log the user in as the newly created user and redirect to index
