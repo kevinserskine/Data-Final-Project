@@ -197,7 +197,7 @@
 
         <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
-        <script src="js/bootstrap.bundle.js"></script>
+        <script src="scripts/bootstrap.bundle.js"></script>
         <script>
             $(document).ready(function() {
                 $('[name="delBtn"]').click(function() {
