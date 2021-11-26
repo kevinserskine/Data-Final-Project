@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="button" class="headerButton" id="signupButton" onclick="signupMode()">Sign Up</button>
     </div>
     <div id="formBody">
-        <h1 class="formHeader" id="loginTitle">Login to Marketplace</h1>
+        <h1 class="formHeader" id="loginTitle">Login to Bookshelf</h1>
         <!-- Form posts to itself -->
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 

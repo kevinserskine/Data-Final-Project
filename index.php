@@ -67,31 +67,49 @@
                     </button>
                     <div class="collapse" id="sortOption">
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="optionRadios" id="titleASC" value="titleA">
-                                <label class="form-check-label" for="titleASC">Title ascending</label>
+                            <div class="card">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="optionRadios" id="titleASC" value="titleA">
+                                            <label class="form-check-label" for="titleASC">Title ascending</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="optionRadios" id="titleDESC" value="titleD">
+                                            <label class="form-check-label" for="titleDESC">Title descending</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="optionRadios" id="authorASC" value="authorA">
+                                            <label class="form-check-label" for="authorASC">Author ascending</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="optionRadios" id="authorDESC" value="authorD">
+                                            <label class="form-check-label" for="authorDESC">Author descending</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="optionRadios" id="publisherASC" value="publishA">
+                                            <label class="form-check-label" for="publisherASC">Publisher ascending</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="optionRadios" id="publisherDESC" value="publishD">
+                                            <label class="form-check-label" for="publisherDESC">Publisher descending</label>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="optionRadios" id="titleDESC" value="titleD">
-                                <label class="form-check-label" for="titleDESC">Title descending</label>
+                            <div class="card-footer justify-content-center align-items-center d-flex">
+                                <button type="submit" value="Sort" name="Sort" class="btn btn-light w-75">Sort</button>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="optionRadios" id="authorASC" value="authorA">
-                                <label class="form-check-label" for="authorASC">Author ascending</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="optionRadios" id="authorDESC" value="authorD">
-                                <label class="form-check-label" for="authorDESC">Author descending</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="optionRadios" id="publisherASC" value="publishA">
-                                <label class="form-check-label" for="publisherASC">Publisher ascending</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="optionRadios" id="publisherDESC" value="publishD">
-                                <label class="form-check-label" for="publisherDESC">Publisher descending</label>
-                            </div>
-                            <input type="submit" value="Sort" name="Sort">
                         </form>
                     </div>
                 </div>
@@ -209,7 +227,8 @@
                         ?>
 
                         <div class="col-12 border border-dark justify-content-center align-items-center d-flex" id="botBar">
-                            <?php
+                            <ul class="pagination">
+                                <?php
                                 $result = mysqli_query($conn, $countQ);
                                 $row = mysqli_fetch_array($result);
                                 $total_records = $row[0];
@@ -219,40 +238,57 @@
 
                                 if(isset($_GET["searchBar"])){
                                     if($page>=2) {
-                                        echo "<a href='index.php?page=".($page-1)."&searchBar=".$_GET['searchBar']."'> Prev </a>";
+                                        echo "<li class='page-item'>";
+                                            echo "<a class='page-link' href='index.php?page=".($page-1)."&searchBar=".$_GET['searchBar']."'>";
+                                                echo "<span>&laquo;</span>";
+                                            echo "</a>";
+                                        echo "</li>";
                                     }
 
                                     for($i=1; $i<=$total_pages; $i++){
                                         if($i==$page){
-                                            $pagLink .="<a class='active' href='index.php?page=".$i."&searchBar=".$_GET['searchBar']."'>".$i."</a>";
+                                            $pagLink .="<li class='page-item'><a class='page-link active' href='index.php?page=".$i."&searchBar=".$_GET['searchBar']."'>".$i."</a></li>";
                                         } else {
-                                            $pagLink .="<a href='index.php?page=".$i."&searchBar=".$_GET['searchBar']."'>".$i."</a>";
+                                            $pagLink .="<li class='page-item'><a class='page-link' href='index.php?page=".$i."&searchBar=".$_GET['searchBar']."'>".$i."</a></li>";
                                         }
                                     }
                                     echo $pagLink;
 
                                     if($page<$total_pages){
-                                        echo "<a href='index.php?page=".($page+1)."&searchBar=".$_GET['searchBar']."'> Next </a>";
+                                        echo "<li class='page-item'>";
+                                            echo "<a class='page-link' href='index.php?page=".($page+1)."&searchBar=".$_GET['searchBar']."'>";
+                                                echo "<span>&raquo;</span>";
+                                            echo "</a>";
+                                        echo "</li>";
                                     }
                                 } else {
                                     if($page>=2) {
-                                        echo "<a href='index.php?page=".($page-1)."'> Prev </a>";
+                                        echo "<li class='page-item'>";
+                                            echo "<a class='page-link' href='index.php?page=".($page-1)."'</a>";
+                                                echo "<span>&laquo;</span>";
+                                            echo "</a>";
+                                        echo "</li>";
                                     }
 
                                     for($i=1; $i<=$total_pages; $i++){
                                         if($i==$page){
-                                            $pagLink .="<a class='active' href='index.php?page=".$i."'>".$i."</a>";
+                                            $pagLink .="<li class='page-item'><a class='page-link active' href='index.php?page=".$i."'>".$i."</a></li>";
                                         } else {
-                                            $pagLink .="<a href='index.php?page=".$i."'>".$i."</a>";
+                                            $pagLink .="<li class='page-item'><a class='page-link' href='index.php?page=".$i."'>".$i."</a></li>";
                                         }
                                     }
                                     echo $pagLink;
 
                                     if($page<$total_pages){
-                                        echo "<a href='index.php?page=".($page+1)."'> Next </a>";
+                                        echo "<li class='page-item'>";
+                                            echo "<a class='page-link' href='index.php?page=".($page+1)."'>";
+                                                echo "<span>&raquo;</span>";
+                                            echo "</a>";
+                                        echo "</li>";
                                     }
                                 }
-                            ?>
+                                ?>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -283,9 +319,9 @@
                             <span id="totalCost">
                                 <?php
                                 if (isset($_SESSION['totalCost'])){
-                                  echo "Total: ".$_SESSION['totalCost'];
+                                  echo "Total: $".number_format($_SESSION['totalCost'],2);
                                 } else {
-                                  echo "Total: 0.00";
+                                  echo "Total: $0.00";
                                 }
                                 ?>
                             </span>
@@ -377,7 +413,11 @@
                             mode: "buy"
                         },
                         success: function(data) {
-                            $("#totalCost").text("Total: "+data['totalCost']);
+                            var formatter = new Intl.NumberFormat('en-CA', {
+                                style: 'currency',
+                                currency: 'CAD',
+                            });
+                            $("#totalCost").text("Total: "+formatter.format(data['totalCost']));
                             var child = "<li class='list-group-item'>Title: "+data["title"]+" - Quantity "+data["quantity"]+" - Price per book - "+data["price"]+"</li>";
                             $("#cartList").append(child)
                         }

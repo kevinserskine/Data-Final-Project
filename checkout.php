@@ -28,4 +28,5 @@
         mysqli_query($conn, "INSERT INTO order_list (order_id, book_id, price) VALUES ($order_id, $book_id, 0.0)");
     }
     unset($_SESSION['cart']['borrow']);
+    unset($_SESSION['totalCost']);
 ?>
