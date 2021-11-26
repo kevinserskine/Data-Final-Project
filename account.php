@@ -53,34 +53,39 @@
         </nav>
         <?php
             if(isset($_POST['cityAdd'])) {
-                $query = "SELECT @addressID:=MAX(address_id)+1 FROM user_address";
-                $result = mysqli_query($conn, $query);
-                $addressID = (int)mysqli_fetch_array($result)[0];
                 $streetNumber = $_POST['streetNumberAdd'];
                 $streetName = $_POST['streetNameAdd'];
                 $city = $_POST['cityAdd'];
                 $postal = $_POST['postalAdd'];
                 if($_POST['unitNumberAdd']==''){
-                    $values = $addressID.", ".$streetNumber.", '".$streetName."', '".$city."', '".$postal."', NULL";
+                    $values = $streetNumber.", '".$streetName."', '".$city."', '".$postal."', NULL";
                 } else {
                     $unit = $_POST['unitNumberAdd'];
-                    $values = $addressID.", ".$streetNumber.", '".$streetName."', '".$city."', '".$postal."', ".$unit;
+                    $values = $streetNumber.", '".$streetName."', '".$city."', '".$postal."', ".$unit;
                 }
-                $query = "INSERT INTO address VALUES ($values)";
+                $query = "INSERT INTO address (street_number, street_name, city, postal_code, unit_number) VALUES ($values)";
                 mysqli_query($conn, $query);
-
+                $addressID=mysqli_insert_id($conn);
                 $query = "INSERT INTO user_address VALUES ($userID, $addressID)";
                 mysqli_query($conn, $query);
             }
-
         ?>
         <div class="container-fluid" id="mainContainer">
             <div class="row">
                 <div class="col">
                     <?php
+                        $query = "SELECT name, email FROM user WHERE user_id=$userID";
+                        $result = mysqli_query($conn, $query);
+                        $row=mysqli_fetch_assoc($result);
+                        $name = $row['name'];
+                        $email = $row['email'];
+
                         $query = "SELECT COUNT(address_id) FROM user_address WHERE user_id=$userID GROUP BY user_id";
                         $result = mysqli_query($conn, $query);
                         $count = mysqli_fetch_array($result);
+                        if (mysqli_num_rows($result)==0) {
+                            $count[0]=0;
+                        }
 
                         $query = "SELECT user_address.address_id, name, email, street_name, city, street_number, postal_code, unit_number FROM user
                         INNER JOIN user_address ON user_address.user_id = user.user_id
@@ -93,8 +98,8 @@
                         <div class="card-body">
                             <h5 class="card-title">User info</h5>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Name: <?php echo $row["name"];?></li>
-                                <li class="list-group-item">Email: <?php echo $row["email"];?></li>
+                                <li class="list-group-item">Name: <?php echo $name;?></li>
+                                <li class="list-group-item">Email: <?php echo $email;?></li>
                                 <?php
                                     $addressCounter=1;
                                 /**
@@ -119,7 +124,7 @@
                                 }
                                 if ($count[0]==0) {
                                     echo "<li class='list-group-item'>Please add an address to your account.</li>";
-                                    } else {
+                                } else {
                                     list($addressString, $row) = extracted($addressCounter, $row);
                                     if ($count[0]>1){
                                             while ($row = mysqli_fetch_assoc($result)){
@@ -182,16 +187,19 @@
                             <h5 class="card-title">Your orders</h5>
                             <ul class="list-group list-group-flush">
                                 <?php
-                                $query = "SELECT order_list.price, book.title, order_status.status_value, user_order.order_date, address.street_name, address.street_number FROM order_list
+                                $query = "SELECT order_list.price, book.title, user_order.order_date, address.street_name, address.street_number FROM order_list
                                     INNER JOIN book ON order_list.book_id = book.book_id
                                     INNER JOIN order_history ON order_list.order_id = order_history.order_id
-                                    INNER JOIN order_status ON order_status.status_id = order_history.status_id
                                     INNER JOIN user_order ON user_order.order_id = order_list.order_id
                                     INNER JOIN address ON address.address_id = user_order.dest_address_id
                                     WHERE user_id=$userID";
                                 $result = mysqli_query($conn, $query);
-                                while ($row = mysqli_fetch_assoc($result)){
-                                    echo '<li class="list-group-item">Title: '.$row["title"].' Status: '.$row["status_value"].' Price: '.$row["price"].' Address: '.$row["street_number"].' '.$row["street_name"].'</li>';
+                                if(mysqli_num_rows($result)!=0){
+                                    while ($row = mysqli_fetch_assoc($result)){
+                                        echo '<li class="list-group-item">Title: '.$row["title"].' Status: '.$row["status_value"].' Price: '.$row["price"].' Address: '.$row["street_number"].' '.$row["street_name"].'</li>';
+                                    }
+                                } else {
+                                    echo '<li class="list-group-item">No orders found</li>';
                                 }
                                 ?>
                             </ul>
