@@ -44,9 +44,7 @@
                     if (isset($_SESSION['sessionID'])) {
                         echo 'href="account.php"';
                     } else {
-                        //Temporarily set sessionID to 1 while login is broken
-                        $_SESSION['sessionID']=1;
-                        //echo 'href="login.php"';
+                        echo 'href="login.php"';
                     }
                     ?>
                 >
@@ -55,7 +53,7 @@
                 </a>
             </div>
             <div class="col-1 h-100 justify-content-center align-items-center d-flex">
-                <button type="button" class="btn btn-outline-light w-75">
+                <button type="button" class="btn btn-outline-light w-75" id="cartBtn">
                     <img src="images/bootstrap-icons-1.7.1/cart-check.svg" class="w-100">
                 </button>
             </div>
@@ -384,6 +382,16 @@
                             $("#cartList").append(child)
                         }
                     });
+                });
+                $('#cartBtn').click(function(){
+                    $.ajax({
+                        url: "checkout.php",
+                        success: function(data){
+                            console.log(data);
+                            $("#totalCost").text("Total: 0.00");
+                            $("#cartList").empty();
+                        }
+                    })
                 });
             });
         </script>

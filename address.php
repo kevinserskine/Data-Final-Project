@@ -5,9 +5,7 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    session_start();
 
-    $userID=$_SESSION['sessionID'];
     $addressID=(int)$_POST['id'];
 
     mysqli_begin_transaction($conn);

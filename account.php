@@ -187,16 +187,15 @@
                             <h5 class="card-title">Your orders</h5>
                             <ul class="list-group list-group-flush">
                                 <?php
-                                $query = "SELECT order_list.price, book.title, user_order.order_date, address.street_name, address.street_number FROM order_list
-                                    INNER JOIN book ON order_list.book_id = book.book_id
-                                    INNER JOIN order_history ON order_list.order_id = order_history.order_id
-                                    INNER JOIN user_order ON user_order.order_id = order_list.order_id
+                                $query = "SELECT order_list.price, book.title, address.street_name, address.street_number FROM user_order
+                                    INNER JOIN order_list ON order_list.order_id = user_order.order_id
                                     INNER JOIN address ON address.address_id = user_order.dest_address_id
+                                    INNER JOIN book ON book.book_id = order_list.book_id
                                     WHERE user_id=$userID";
                                 $result = mysqli_query($conn, $query);
                                 if(mysqli_num_rows($result)!=0){
                                     while ($row = mysqli_fetch_assoc($result)){
-                                        echo '<li class="list-group-item">Title: '.$row["title"].' Status: '.$row["status_value"].' Price: '.$row["price"].' Address: '.$row["street_number"].' '.$row["street_name"].'</li>';
+                                        echo '<li class="list-group-item">Title: '.$row["title"].' - Status: Preparing - Price: '.$row["price"].' - Address: '.$row["street_number"].' '.$row["street_name"].'</li>';
                                     }
                                 } else {
                                     echo '<li class="list-group-item">No orders found</li>';
