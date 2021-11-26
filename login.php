@@ -58,13 +58,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($userExists) {
             $error = "User with that email already exists!";
         } else {
+            $query = "SELECT MAX(user_id)+1 FROM user";
+            $result = mysqli_query($conn, $query);
+            $userID = (int)mysqli_fetch_array($result)[0];
             // Insert the new user info into the database
-            $sql = "INSERT INTO user (name, email, password) VALUES ('$name','$email','$password');";
+            $sql = "INSERT INTO user VALUES ('$userID','$password','$name','$email');";
             mysqli_query($conn, $sql);
 
             // Log the user in as the newly created user and redirect to index
             $_SESSION['sessionID'] = $conn->insert_id;
-            header("Location:index.php");
+            //header("Location:index.php");
         }
     }
 }
@@ -85,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-
 <div id="loginBox">
     <div id="splitHeader">
         <button type="button" class="headerButton" id="loginButton" onclick="loginMode()">Log In</button>
