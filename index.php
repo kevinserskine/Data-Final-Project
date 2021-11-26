@@ -181,7 +181,7 @@
                                 }
                                 $query .= " ORDER BY ".$category." ".$order." LIMIT ".$start_from.", ".$books_per_page;
                             } else {
-                                $query = "SELECT * from book
+                                $query = "SELECT ISBN13, img_link from book
                                 INNER JOIN book_author ON book.book_id=book_author.book_id
                                 INNER JOIN author ON author.author_id=book_author.author_id
                                 INNER JOIN publisher ON book.publisher_id=publisher.publisher_id
@@ -195,7 +195,11 @@
 
                             //Output a card for each book found
                             while ($row = mysqli_fetch_assoc($rs_result)){
-                                echo '<div class="col border bookCard">'.$row["title"].'<br>'.$row["author_name"].'</div>';
+                                echo '<div class="col border bookCard">';
+                                    echo '<button class="btn btn-outline-link h-100 w-100" type="button" data-toggle="modal" data-target="#bookModal" data-ISBN="'.$row["ISBN13"].'">';
+                                        echo '<img src="'.$row["img_link"].'" class="w-25">';
+                                    echo '</button>';
+                                echo '</div>';
                             }
 
                             //Pads the rest of the mock 2x2 if not enough books are found
@@ -257,16 +261,116 @@
 
                 <div class="col-2 px-0">
                     <div class="row-cols-1" style="overflow-y: scroll">
-                        <div class="col position-absolute border border-dark" id="botBar">Total</div>
+                        <div class="card">
+                            <ul class="list-group list-group-flush">
+                                <?php
+                                    print_r($_SESSION['cart']);
+                                ?>
+                                <li class="list-group-item">Test</li>
+                            </ul>
+                        </div>
+                        <div class="col position-absolute border border-dark" id="botBar">
+                            <span id="totalCost">
+                                <?php
+                                if (isset($_SESSION['totalCost'])){
+                                  echo "Total: ".$_SESSION['totalCost'];
+                                } else {
+                                  echo "Total: 0.00";
+                                }
+                                ?>
+                            </span>
+                        </div>
                     </div>
-
                 </div>
 
+                <div class="modal fade" id="bookModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="bookModalLabel">Book :)</h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div class="card justify-content-center align-items-center d-flex">
+                                <img src="https://covers.openlibrary.org/b/id/7555639-L.jpg" id="modalImg" class="card-img-top w-25">
+                                <ul class="list-group list-group-flush w-100">
+                                    <li class="list-group-item" id="authorLi">Author</li>
+                                    <li class="list-group-item" id="publisherLi">Publisher</li>
+                                    <li class="list-group-item" id="pubDateLi">Publication Date</li>
+                                    <li class="list-group-item" id="ISBNLi">ISBN13</li>
+                                </ul>
+                                <div class="card-footer w-100" id="PriceFoot">
+                                    Price
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="borrowBtn">Borrow</button>
+                                <button type="button" class="btn btn-success" id="buyBtn">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
         <script src="scripts/bootstrap.bundle.js"></script>
+        <script>
+            $('#bookModal').on('show.bs.modal', function(event){
+                var button = $(event.relatedTarget);
+                var ISBN = button.data('isbn');
+                var modal = $(this)
+                $.ajax({
+                    type: "POST",
+                    url: "bookModal.php",
+                    data: {
+                        ISBN: ISBN
+                    },
+                    success: function(data) {
+                        modal.find('.modal-title').text(data["Title"]);
+                        $("#authorLi").text("Author: "+data["Author"]);
+                        $("#publisherLi").text("Publisher: "+data["Publisher"]);
+                        $("#pubDateLi").text("Publication date: "+data["Date"]);
+                        $("#ISBNLi").text("ISBN13: "+data["ISBN"]);
+                        $("#PriceFoot").text("Price: "+data["Price"]);
+                        $("#modalImg").attr("src",data["Img"]);
+                    }
+                });
+            });
+            $(document).ready(function(){
+                $('#borrowBtn').click(function(){
+                    var string = $(this).parent().siblings('.card').find("#ISBNLi")["0"].innerText;
+                    var ISBN = string.slice(8);
+                    $.ajax({
+                        type: "POST",
+                        url: "bookCart.php",
+                        data: {
+                            ISBN: ISBN,
+                            mode: "borrow"
+                        },
+                        success: function(data) {
+                            //alert(data);
+                        }
+                    });
+                });
+                $('#buyBtn').click(function(){
+                    var string = $(this).parent().siblings('.card').find("#ISBNLi")["0"].innerText;
+                    var ISBN = string.slice(8);
+                    $.ajax({
+                        type: "POST",
+                        url: "bookCart.php",
+                        data: {
+                            ISBN: ISBN,
+                            mode: "buy"
+                        },
+                        success: function(data) {
+                            $("#totalCost").text("Total: "+data);
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
