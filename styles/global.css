@@ -1,0 +1,69 @@
+body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+}
+
+input, label {
+    display: block;
+    font-family: Roboto, sans-serif;
+}
+
+input, textarea {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+input {
+    height: 30px;
+}
+
+textarea {
+    resize: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Montserrat, sans-serif;
+}
+
+a {
+    color: #616161;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+.formHeader {
+    font-family: Montserrat, sans-serif;
+}
+
+#formBody {
+    margin: 20px;
+}
+
+
+#submit {
+    background-color: #BBDEFB;
+    height: 40px;
+}
+
+.pageContent {
+    width: 70%;
+    margin: auto;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 50px;
+    justify-content: center;
+}
+
+.error {
+    color: red;
+}
