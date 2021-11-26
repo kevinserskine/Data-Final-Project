@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Sanitize our inputs and hash the password (nice try bobby tables)
     $email = $conn->real_escape_string($email);
-    $password = password_hash($conn->real_escape_string($password), PASSWORD_DEFAULT);
+    $passwordHash = password_hash($conn->real_escape_string($password), PASSWORD_DEFAULT);
 
     // Make a sql query to see if the user exists (This is useful for both login and signup)
     $sql = "SELECT email FROM user WHERE email = '$email';";
@@ -36,18 +36,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Do things based on if user logging in or signing up
     if ($mode == "login") {
         if ($userExists) {
-            $sql = $sql = "SELECT email ,user_id FROM user WHERE email = '$email' AND password = '$password';";
+            $sql = $sql = "SELECT email ,user_id FROM user WHERE email = '$email';";
             $result = mysqli_query($conn, $sql);
-            // If nothing was returned, wrong password
-            if ($result->num_rows == 0) {
-                $error = "Wrong password!";
-            } else {
-                // Set the session info and redirect the user
-                while ($row = $result->fetch_assoc()) {
+            while ($row = $result->fetch_assoc()) {
+                // Verify the password against the hash
+                if (password_verify($password, $row['password'])) {
+                    // Set the session info and redirect the user
                     $_SESSION['sessionID'] = $row['user_id'];
                     // Redirect to index
                     header("Location:index.php");
-
+                } else {
+                    $error = "Wrong password!";
                 }
             }
         } else {
@@ -58,11 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($userExists) {
             $error = "User with that email already exists!";
         } else {
+            // Jank fix todo make auto increment
             $query = "SELECT MAX(user_id)+1 FROM user";
             $result = mysqli_query($conn, $query);
             $userID = (int)mysqli_fetch_array($result)[0];
             // Insert the new user info into the database
-            $sql = "INSERT INTO user VALUES ('$userID','$password','$name','$email');";
+            $sql = "INSERT INTO user VALUES ('$userID','$passwordHash','$name','$email');";
             mysqli_query($conn, $sql);
 
             // Log the user in as the newly created user and redirect to index
