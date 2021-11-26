@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="607676fa-c8da-4344-accb-923c96119dc1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/components/imports.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account.php" beforeDir="false" afterPath="$PROJECT_DIR$/account.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +74,7 @@
       <updated>1637689187189</updated>
       <workItem from="1637689189113" duration="1969000" />
       <workItem from="1637694173943" duration="15136000" />
-      <workItem from="1637889223551" duration="2931000" />
+      <workItem from="1637889223551" duration="4017000" />
     </task>
     <servers />
   </component>
@@ -95,10 +98,10 @@
       <screen x="0" y="0" width="1473" height="864" />
     </state>
     <state x="192" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1473.864@0.0.1473.864" timestamp="1637689447469" />
-    <state x="572" y="356" key="NewPhpFileDialog" timestamp="1637889379529">
+    <state x="572" y="356" key="NewPhpFileDialog" timestamp="1637942785920">
       <screen x="0" y="0" width="1473" height="864" />
     </state>
-    <state x="572" y="356" key="NewPhpFileDialog/0.0.1473.864@0.0.1473.864" timestamp="1637889379529" />
+    <state x="572" y="356" key="NewPhpFileDialog/0.0.1473.864@0.0.1473.864" timestamp="1637942785920" />
     <state x="246" y="77" key="SettingsEditor" timestamp="1637700351917">
       <screen x="0" y="0" width="1473" height="864" />
     </state>

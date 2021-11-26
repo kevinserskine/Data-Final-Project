@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link rel="stylesheet" href="styles/login.css">
     <title>Placeholder change later</title>
-
+    <?php include_once 'components/imports.php' ?>
     <script type="text/javascript" src="scripts/loginTabs.js" async></script>
 
 </head>
