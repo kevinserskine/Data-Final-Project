@@ -28,7 +28,7 @@
             </div>
 
             <div class="col h-100 d-flex justify-content-center align-items-center">
-                <form class="form-inline w-100" method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <form class="form-inline w-100" method="GET" action="index.php">
                     <div class="col">
                         <input class="form-control w-100 rounded-pill" id="searchBar" name="searchBar" type="search" placeholder="Search">
                     </div>
