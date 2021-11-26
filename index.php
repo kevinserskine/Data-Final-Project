@@ -211,7 +211,7 @@
 
                             //Output a div for each book found
                             while ($row = mysqli_fetch_assoc($rs_result)){
-                                echo '<div class="col border bookCard">';
+                                echo '<div class="col bookCard">';
                                     //Each div contains a button with the books ISBN data saved, probably would've been better to use book_id in hindsight
                                     echo '<button class="btn btn-outline-link h-100 w-100" type="button" data-toggle="modal" data-target="#bookModal" data-ISBN="'.$row["ISBN13"].'">';
                                         echo '<img src="'.$row["img_link"].'" class="w-25">';
@@ -222,12 +222,12 @@
                             //Pads the rest of the mock 2x2 if not enough books are found
                             if (mysqli_num_rows($rs_result)<4){
                                 for ($i=0;$i<$books_per_page-mysqli_num_rows($rs_result);$i++){
-                                    echo '<div class="col border bookCard">Disabled</div>';
+                                    echo '<div class="col bookCard"></div>';
                                 }
                             }
                         ?>
 
-                        <div class="col-12 border border-dark justify-content-center align-items-center d-flex" id="botBar">
+                        <div class="col-12 justify-content-center align-items-center d-flex" id="botBar">
                             <ul class="pagination">
                                 <?php
                                 $result = mysqli_query($conn, $countQ);

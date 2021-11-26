@@ -67,3 +67,6 @@ a:hover {
 .error {
     color: red;
 }
+
+.btn-outline-light:hover {
+}
