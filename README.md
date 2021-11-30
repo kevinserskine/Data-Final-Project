@@ -15,9 +15,9 @@ Rubbia Pasha: 100702075
 
 
 
-## Config
+## Instructions
 
-Make a file called `php.ini` in the root directory with the following:
+1. Make a file called `php.ini` in the root directory with the following:
 
 ```ini
 [db_config]
@@ -26,3 +26,8 @@ user = "root"
 password = ""
 database = ""
 ```
+2. Import Dump20211129.sql into your database 
+
+3. Run Wamp64 
+
+4. Enter URL: http://localhost/Data-Final-Project/index.php 
