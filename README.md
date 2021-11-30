@@ -30,4 +30,4 @@ database = ""
 
 3. Run Wamp64 
 
-4. Enter the appropriate URL to run index.php, for example http://localhost/Data-Final-Project/index.php
+4. Enter the appropriate URL to run index.php
